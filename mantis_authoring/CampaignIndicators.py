@@ -75,6 +75,8 @@ from dingos_authoring.views import GetDraftJSON
 from mantis_stix_importer.importer import STIX_Import
 from mantis_stix_importer.templatetags.mantis_stix_importer_tags import get_StixIcon
 
+from .validators import STIX_Validator
+
 
 
 
@@ -845,6 +847,7 @@ class ProcessingView(BasicProcessingView):
     author_view = FORM_VIEW_NAME
     transformer = stixTransformer
     importer_class = STIX_Import
+    validator_class = STIX_Validator
 
 
 
