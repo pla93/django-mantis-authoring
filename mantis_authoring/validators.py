@@ -65,5 +65,34 @@ class Basic_STIX_Validator:
             self.result = sdv.validate_profile(xml_to_validate, self.profile_path)
 
 
+class Basic_CybOX_Validator:
+    #cybox version
+    cybox_version = None
+
+    #if you want to validate the xml against non-bundled schemas you can define a path to a folder containing them
+    #e.g. schemas_path = "/path/to/schemas/"
+    schemas_path = None
+
+    #if True, the validator makes use of the xsi:schemaLocation attribute within the stix xml document
+    schemaloc = False
+
+    result = None
+
+    @property
+    def is_valid(self):
+        return self.result.is_valid
+
+    @property
+    def errors(self):
+        return self.result.errors
+
+    @property
+    def get_error_class(self):
+        return self.result.errors[0].__class__.__name__
+
+    def __init__(self, xml_to_validate):
+        self.result = sdv.validate_xml(xml_to_validate, self.cybox_version, self.schemas_path, self.schemaloc)
+
+
 class STIX_Validator(Basic_STIX_Validator):
     stix_version = '1.2'
